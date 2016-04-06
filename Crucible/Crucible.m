@@ -18,6 +18,9 @@ static NSString *const IMAGE_KEY = @"Image";
 static NSString *const VALUE_KEY = @"Value";
 static NSString *const RETURN_KEY = @"Returns";
 static NSString *const TRANSFORM_KEY = @"Transform";
+static NSString *const MIN_VERSION_KEY = @"MinBundleVersion";
+static NSString *const MAX_VERSION_KEY = @"MaxBundleVersion";
+
 //#ifdef DEBUG
     #define CLog(...) NSLog(@"[Crucible] " __VA_ARGS__)
 //#else
@@ -371,12 +374,18 @@ static void process_function_hook(NSDictionary *hook) {
     
 }
 
-static void process_hooks(NSDictionary *plist) {
+static void process_hooks(NSDictionary *plist, int version) {
     NSArray *hooks = plist[HOOKS_KEY];
     if (hooks == nil) return;
     
     for (NSDictionary *hook in hooks) {
         if (![hook isKindOfClass:[NSDictionary class]]) continue;
+        
+        NSNumber *minNumber = hook[MIN_VERSION_KEY];
+        NSNumber *maxNumber = hook[MAX_VERSION_KEY];
+        
+        if (minNumber != nil && version < minNumber.intValue) continue;
+        if (maxNumber != nil && version > maxNumber.intValue) continue;
         
         if ([hook.allKeys containsObject:CLASS_KEY]) {
             CLog(@"Processing Class Hook");
@@ -390,12 +399,12 @@ static void process_hooks(NSDictionary *plist) {
     
 }
 
-static void load_path(NSString *path) {
+static void load_path(NSString *path, int version) {
     if (![path.pathExtension isEqualToString:@"plist"]) return;
     NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:path];
     if (plist != nil) {
         CLog(@"Processing %@", path.lastPathComponent.stringByDeletingPathExtension);
-        process_hooks(plist);
+        process_hooks(plist, version);
     }
 }
 
@@ -406,10 +415,17 @@ ctor {
         
         for (NSString *name in crucible) {
             NSString *identifier = name.stringByDeletingPathExtension;
+            
+            int version = [[[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleVersionKey] intValue];
+            
             if ([identifier hasPrefix:@"class_"]) {
                 NSString *className = [identifier substringFromIndex:@"class_".length];
-                if (objc_getClass(className.UTF8String) == NULL) continue;
+                Class cls = objc_getClass(className.UTF8String);
+                if (cls == NULL) continue;
                 
+                NSBundle *bndl = [NSBundle bundleForClass:cls];
+                if (bndl != nil)
+                    version = [[bndl infoDictionary][(__bridge NSString *)kCFBundleVersionKey] intValue];
             } else if (![[NSBundle bundleWithIdentifier:identifier] isLoaded]) continue;
             
             // We should load this plist's hooks
@@ -421,11 +437,11 @@ ctor {
                     for (NSString *name in contents) {
                         if (![name.pathExtension isEqualToString:@"plist"]) continue;
                         NSString *file_path = [path stringByAppendingPathComponent:name];
-                        load_path(file_path);
+                        load_path(file_path, version);
                     }
                     
                 } else {
-                    load_path(path);
+                    load_path(path, version);
                 }
             }
         }
