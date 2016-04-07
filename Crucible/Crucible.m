@@ -39,7 +39,7 @@ static id transform_value(id value, NSString *transform) {
         return [NSURL fileURLWithPath:value];
     } else if ([transform isEqualToString:@"now"]) {
         return [NSDate date];
-    } else if ([transform isEqualToString:@"hex"]) {
+    } else if ([transform isEqualToString:@"hex_color"]) {
         if (!is_number && !is_string) return nil;
         
         unsigned int clr;
@@ -47,6 +47,7 @@ static id transform_value(id value, NSString *transform) {
         if (is_number) {
             clr = ((NSNumber *)value).unsignedIntValue;
         } else {
+            if ([value hasPrefix:@"#"]) value = [value substringFromIndex:1];
             NSScanner *scanner = [NSScanner scannerWithString:value];
             [scanner scanHexInt:&clr];
         }
@@ -55,7 +56,7 @@ static id transform_value(id value, NSString *transform) {
         unsigned char g = (unsigned char)(clr >> 8);
         unsigned char b = (unsigned char)(clr);
         
-        return [NSColor colorWithRed:(CGFloat)r / 0xFF green:(CGFloat)g / 0xFF blue:(CGFloat)b / 0xFF alpha:1.0];
+        return [NSColor colorWithRed:(CGFloat)r / 255. green:(CGFloat)g / 255. blue:(CGFloat)b / 255. alpha:1.0];
         
     } else if ([transform isEqualToString:@"color"]) {
         // prefix with rgba/hsla/hsba
