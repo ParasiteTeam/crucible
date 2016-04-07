@@ -24,7 +24,7 @@ Crucible files are just in a certain `plist` file format. Here is the general st
 |––––|––––|––––|––––| Index 0 (array)
 |––––|––––|––––|––––|––––| Index 0 (string): colorWithRed:green:blue:alpha:
 |––––|––––|––––|––––|––––| Index 1 (any): "#FFF"
-|––––|––––|––––|––––|––––| Index 2 (optional. See Transforms): "hex_color"
+|––––|––––|––––|––––|––––| Index 2 (optional. See Transforms): "color"
 |––––|––––|––––|––––| Index 1 (array)
 |––––|––––|––––|––––|––––| Index 0 (string): "+description"
 |––––|––––|––––|––––|––––| Index 1 (any): "Hello, Class Description"
@@ -71,4 +71,4 @@ Transforms take whatever value you entered and does some pre-processing at runti
 | url  | NSURL | string | Transforms a string into an NSURL using `URLWithString:` |
 | file_url | NSURL | string | Transforms a string into a file path URL using `fileURLWithPath:` |
 | now | NSDate | ignored | Returns `[NSDate date]` |
-| hex_color | NSColor | string/number | Transforms a hex string or a number into an NSColor |
+| color | NSColor | string/number | Transforms a string or a number into an NSColor. Accepts the common CSS styles like hsl/hsla, hsb, rgb, gray, hex. |
