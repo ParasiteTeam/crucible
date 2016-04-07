@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FA03A6121CB4C02D00F9E960 /* ParasiteRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA03A6111CB4C02D00F9E960 /* ParasiteRuntime.framework */; };
 		FA03A6151CB4C02D00F9E960 /* Crucible.m in Sources */ = {isa = PBXBuildFile; fileRef = FA03A6141CB4C02D00F9E960 /* Crucible.m */; };
 		FA4F37CF1CB4C5A800721ED3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA4F37CE1CB4C5A800721ED3 /* Foundation.framework */; };
 		FAC096B11CB58E940047496D /* tramp.s in Sources */ = {isa = PBXBuildFile; fileRef = FAC096B01CB58E940047496D /* tramp.s */; };
+		FAC096B31CB5DF140047496D /* ParasiteRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC096B21CB5DF140047496D /* ParasiteRuntime.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FA03A60E1CB4C02D00F9E960 /* Crucible.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Crucible.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA03A6111CB4C02D00F9E960 /* ParasiteRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParasiteRuntime.framework; path = Library/Frameworks/ParasiteRuntime.framework; sourceTree = DEVELOPER_DIR; };
 		FA03A6141CB4C02D00F9E960 /* Crucible.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Crucible.m; sourceTree = "<group>"; };
 		FA03A6161CB4C02D00F9E960 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA4F37CE1CB4C5A800721ED3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FAC096B01CB58E940047496D /* tramp.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = tramp.s; sourceTree = "<group>"; };
+		FAC096B21CB5DF140047496D /* ParasiteRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParasiteRuntime.framework; path = ../../../../../../Library/Frameworks/ParasiteRuntime.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,8 +27,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC096B31CB5DF140047496D /* ParasiteRuntime.framework in Frameworks */,
 				FA4F37CF1CB4C5A800721ED3 /* Foundation.framework in Frameworks */,
-				FA03A6121CB4C02D00F9E960 /* ParasiteRuntime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,8 +55,8 @@
 		FA03A6101CB4C02D00F9E960 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAC096B21CB5DF140047496D /* ParasiteRuntime.framework */,
 				FA4F37CE1CB4C5A800721ED3 /* Foundation.framework */,
-				FA03A6111CB4C02D00F9E960 /* ParasiteRuntime.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -233,7 +233,10 @@
 				CLANG_DEBUG_INFORMATION_LEVEL = "line-tables-only";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks/;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks/,
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = Crucible/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Parasite/Extensions";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexzielenski.crucible;
@@ -252,7 +255,10 @@
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_LOCATION = YES;
 				DSTROOT = "";
-				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks/;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks/,
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INFOPLIST_FILE = Crucible/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Parasite/Extensions";
