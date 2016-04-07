@@ -7,6 +7,7 @@
 //
 
 #import "NSString+Transforms.h"
+#import "NSObject+Transforms.h"
 
 @implementation NSString (Transforms)
 

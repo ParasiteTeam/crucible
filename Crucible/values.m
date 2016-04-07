@@ -12,7 +12,12 @@
 id transform_value(id value, NSString *transform) {
     SEL transform_selector = NSSelectorFromString([@(MACRO(TRANSFORM_PREFIX)) stringByAppendingString: transform]);
     if ([value respondsToSelector:transform_selector]) {
-        return (__bridge_transfer id)[value performSelector:transform_selector];
+        NSInvocation *inv = [NSInvocation invocationWithMethodSignature:[NSMethodSignature methodSignatureForSelector:transform_selector]];
+        [inv invokeWithTarget:value];
+        id retval;
+        [inv getReturnValue:&retval];
+        return retval;
+        
     }
     return nil;
 }
