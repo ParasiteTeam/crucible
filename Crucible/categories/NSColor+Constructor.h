@@ -7,12 +7,17 @@
 //
 
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-#import <UIKit/UIKit.h>
-@interface UIColor (Constructor)
+    #define COLOR_CLASS UIColor
 #else
-#import <Cocoa/Cocoa.h>
-@interface NSColor (Constructor)
+    #define COLOR_CLASS NSColor
 #endif
 
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#import <UIKit/UIKit.h>
+#else
+#import <Cocoa/Cocoa.h>
+#endif
+
+@interface COLOR_CLASS (Constructor)
 + (instancetype)colorWithHexColor:(unsigned  int)hex;
 @end

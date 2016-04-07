@@ -8,6 +8,7 @@
 
 #import "NSString+Transforms.h"
 #import "NSObject+Transforms.h"
+#import "NSColor+Constructor.h"
 
 @implementation NSString (Transforms)
 
@@ -20,6 +21,27 @@ TRANSFORM(file_url) {
 }
 
 TRANSFORM(color) {
+    if ([self hasPrefix:@"#"]) {
+        NSString *hexCode = [self substringFromIndex:1];
+        if (hexCode.length == 1) {
+            hexCode = [NSString stringWithFormat:@"%@%@%@%@%@%@", hexCode, hexCode, hexCode, hexCode, hexCode, hexCode];
+        } else if (hexCode.length == 3) {
+            unichar first = [hexCode characterAtIndex:0];
+            unichar second = [hexCode characterAtIndex:1];
+            unichar third = [hexCode characterAtIndex:2];
+            hexCode = [NSString stringWithFormat:@"%c%c%c%c%c%c", first, first, second, second, third, third];
+
+        } else if (hexCode.length != 6) {
+            return nil;
+        }
+        
+        unsigned int hex;
+        NSScanner *scanner = [NSScanner scannerWithString:hexCode];
+        [scanner scanHexInt:&hex];
+#
+        return [COLOR_CLASS colorWithHexColor:hex];
+        
+    }
     return nil;
 }
 
