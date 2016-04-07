@@ -32,6 +32,8 @@ Crucible files are just in a certain `plist` file format. Here is the general st
 |––––|––––|––––|––––|––––| Index 0 (string): "-description"
 |––––|––––|––––|––––|––––| Index 1 (any): "Hello, Instance Description"
 |––––|––––| Index 1 (dictionary)
+|––––|––––|––––| Key: MinBundleVersion (number): 0
+|––––|––––|––––| Key: MaxBundleVersion (number): 999
 |––––|––––|––––| Key: Symbol (string): "_NSUserName"
 |––––|––––|––––| Key: Image (string): "identifier:com.apple.AppKit"
 |––––|––––|––––| Key: Returns (string): "@"
@@ -49,6 +51,8 @@ Crucible files are just in a certain `plist` file format. Here is the general st
 |-----|------|-------------|
 | Hooks | array of Hook Elements | The root key that contains all of your hooks |
 | Hook Element | dictionary | Contains a **class hook** or a **function hook** |
+| MinBundleVersion | number | Minimum Bundle Version to use this `Hook Element` on. |
+| MaxBundleVersion | number | Maximum Bundle Version to use this `Hook Element` on. |
 | Class | string | For a **class hook**, specifies which class the `Methods` key will hook |
 | Methods | array of Method Elements | For a **class hook**, contains a list of all the methods in the class to hook and which values to return. |
 | Method Element | array | For a **class hook**, describes a method to hook and the return value. The ***first*** value is the selector of the method to replace; you can optionally prefix with +/- to disambiguate class and instance methods, but leaving it off lets Crucible check both. The ***second*** element is a *Value Element* of the return value to use. And you can optionally include 	 ***third*** value in the array which is the name of the *Transform* to apply. *Transforms* are described later on. |
@@ -56,7 +60,7 @@ Crucible files are just in a certain `plist` file format. Here is the general st
 | Image | string | For a **function hook**, Path to a binary where we can find your function. You can prefix this with `identifier:` to have Crucible dynamically find the executable given a bundle identifier, or you can write `@executable_path` to specify the Application binary path. |
 | Returns | string | For a **function hook**, a type encoding of the return type of the function you are hooking. [More Information](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html)
 | Value | value element | Value to return |
-| Value Element | dictionary/any | Anywhere you are writing something as a return value, whether inside a function hook or the method hook, your objects will be recursively `sanitized`. This is just a fancy word we used to say that whenever I see a dictionary with the key `Value` Crucible will treat that sub-element as another *Value Element* and collapse the original one into just the smaller one. Why would you do this? So you can also have a `Transform` key and apply transforms to values in dictionaries and arrays.
+| Value Element | dictionary/any | Anywhere you are writing something as a return value, whether inside a function hook or the method hook, your objects will be recursively `sanitized`. This is just a fancy word we used to say that whenever I see a dictionary with the key `Value` Crucible will treat that sub-element as another *Value Element* and collapse the original one into just the smaller one. Why would you do this? So you can also have a `Transform` key and apply transforms to values in dictionaries and arrays. |
 
 ### Transforms
 
