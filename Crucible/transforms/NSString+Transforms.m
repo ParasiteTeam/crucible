@@ -96,7 +96,7 @@ TRANSFORM(color) {
         if (alpha) quad = [quad substringFromIndex:1];
         
         float_quad args;
-        float_quad scale = { 1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0 };
+        float_quad scale = { 1.0 / 360.0, 1.0, 1.0, 1.0 };
         NSScanner *scan = [NSScanner scannerWithString:quad];
         if (scan_quad(scan, scale, &args, alpha)) {
             return [COLOR_CLASS colorWithHue:args.a saturation:args.b lightness:args.c alpha:args.d];
@@ -109,10 +109,10 @@ TRANSFORM(color) {
         if (alpha) quad = [quad substringFromIndex:1];
         
         float_quad args;
-        float_quad scale = { 1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0 };
+        float_quad scale = { 1.0 / 360.0, 1.0, 1.0, 1.0 };
         NSScanner *scan = [NSScanner scannerWithString:quad];
         if (scan_quad(scan, scale, &args, alpha)) {
-            return [COLOR_CLASS colorWithHue:args.a saturation:args.b brightness:args.c alpha:args.d];
+            return [COLOR_CLASS colorWithHue:(args.a - floor(args.a)) saturation:args.b brightness:args.c alpha:args.d];
         }
         
         return nil;

@@ -16,7 +16,7 @@ static inline void HSLToHSB(float_quad hsl, float_quad *hsb) {
     if (hsb->b != 0.0) {
         hsb->b = (2 * hsb->b) / (hsb->b + hsl.c);
     }
-    hsb->a = hsl.a;
+    hsb->a = hsl.a - floor(hsl.a);
 }
 
 @implementation COLOR_CLASS (Constructor)
