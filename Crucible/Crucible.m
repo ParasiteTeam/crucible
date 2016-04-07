@@ -347,7 +347,7 @@ static void process_function_hook(NSDictionary *hook) {
         }
     }
     
-    id value = hook[VALUE_KEY];
+    id value = sanitize_value(hook[VALUE_KEY]);
     NSString *returns = hook[RETURN_KEY];
     
     CLog(@"Hooking %@ with %@ (%@) in %@", symbol, value, returns, image);
