@@ -28,7 +28,7 @@
 	<dict>
 		<key>Bundles</key>
 		<array>
-			<string>com.apple.Foundation</string>
+			<string>com.apple.AppKit</string>
 		</array>
 	</dict>
 </dict>
