@@ -11,6 +11,12 @@
 		FA4F37CF1CB4C5A800721ED3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA4F37CE1CB4C5A800721ED3 /* Foundation.framework */; };
 		FAC096B11CB58E940047496D /* tramp.s in Sources */ = {isa = PBXBuildFile; fileRef = FAC096B01CB58E940047496D /* tramp.s */; };
 		FAC096B31CB5DF140047496D /* ParasiteRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC096B21CB5DF140047496D /* ParasiteRuntime.framework */; };
+		FAC096B51CB6D2DD0047496D /* hooks.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC096B41CB6D2DD0047496D /* hooks.m */; };
+		FAC096BA1CB6D3DD0047496D /* values.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC096B91CB6D3DD0047496D /* values.m */; };
+		FAC096BE1CB6D4660047496D /* NSString+Transforms.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC096BD1CB6D4660047496D /* NSString+Transforms.m */; };
+		FAC096C11CB6D4760047496D /* NSNumber+Transforms.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC096C01CB6D4760047496D /* NSNumber+Transforms.m */; };
+		FAC096C51CB6D4F20047496D /* NSObject+Transforms.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC096C41CB6D4F20047496D /* NSObject+Transforms.m */; };
+		FAC096CA1CB6D72E0047496D /* NSColor+Constructor.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC096C91CB6D72E0047496D /* NSColor+Constructor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +26,20 @@
 		FA4F37CE1CB4C5A800721ED3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FAC096B01CB58E940047496D /* tramp.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = tramp.s; sourceTree = "<group>"; };
 		FAC096B21CB5DF140047496D /* ParasiteRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParasiteRuntime.framework; path = ../../../../../../Library/Frameworks/ParasiteRuntime.framework; sourceTree = "<group>"; };
+		FAC096B41CB6D2DD0047496D /* hooks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = hooks.m; sourceTree = "<group>"; };
+		FAC096B61CB6D2E50047496D /* hooks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hooks.h; sourceTree = "<group>"; };
+		FAC096B71CB6D3250047496D /* Crucible.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Crucible.h; sourceTree = "<group>"; };
+		FAC096B81CB6D3CD0047496D /* values.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = values.h; sourceTree = "<group>"; };
+		FAC096B91CB6D3DD0047496D /* values.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = values.m; sourceTree = "<group>"; };
+		FAC096BC1CB6D4660047496D /* NSString+Transforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Transforms.h"; path = "transforms/NSString+Transforms.h"; sourceTree = "<group>"; };
+		FAC096BD1CB6D4660047496D /* NSString+Transforms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Transforms.m"; path = "transforms/NSString+Transforms.m"; sourceTree = "<group>"; };
+		FAC096BF1CB6D4760047496D /* NSNumber+Transforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSNumber+Transforms.h"; path = "transforms/NSNumber+Transforms.h"; sourceTree = "<group>"; };
+		FAC096C01CB6D4760047496D /* NSNumber+Transforms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSNumber+Transforms.m"; path = "transforms/NSNumber+Transforms.m"; sourceTree = "<group>"; };
+		FAC096C21CB6D4910047496D /* Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Transform.h; path = transforms/Transform.h; sourceTree = "<group>"; };
+		FAC096C41CB6D4F20047496D /* NSObject+Transforms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Transforms.m"; path = "transforms/NSObject+Transforms.m"; sourceTree = "<group>"; };
+		FAC096C61CB6D5350047496D /* NSObject+Transforms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSObject+Transforms.h"; path = "transforms/NSObject+Transforms.h"; sourceTree = "<group>"; };
+		FAC096C81CB6D72E0047496D /* NSColor+Constructor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSColor+Constructor.h"; path = "categories/NSColor+Constructor.h"; sourceTree = "<group>"; };
+		FAC096C91CB6D72E0047496D /* NSColor+Constructor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSColor+Constructor.m"; path = "categories/NSColor+Constructor.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,11 +84,41 @@
 		FA03A6131CB4C02D00F9E960 /* Crucible */ = {
 			isa = PBXGroup;
 			children = (
+				FAC096B71CB6D3250047496D /* Crucible.h */,
 				FA03A6141CB4C02D00F9E960 /* Crucible.m */,
+				FAC096B61CB6D2E50047496D /* hooks.h */,
+				FAC096B41CB6D2DD0047496D /* hooks.m */,
+				FAC096B81CB6D3CD0047496D /* values.h */,
+				FAC096B91CB6D3DD0047496D /* values.m */,
+				FAC096BB1CB6D4490047496D /* Transforms */,
+				FAC096C71CB6D7190047496D /* Categories */,
 				FA03A6161CB4C02D00F9E960 /* Info.plist */,
 				FAC096B01CB58E940047496D /* tramp.s */,
 			);
 			path = Crucible;
+			sourceTree = "<group>";
+		};
+		FAC096BB1CB6D4490047496D /* Transforms */ = {
+			isa = PBXGroup;
+			children = (
+				FAC096C21CB6D4910047496D /* Transform.h */,
+				FAC096C61CB6D5350047496D /* NSObject+Transforms.h */,
+				FAC096C41CB6D4F20047496D /* NSObject+Transforms.m */,
+				FAC096BC1CB6D4660047496D /* NSString+Transforms.h */,
+				FAC096BD1CB6D4660047496D /* NSString+Transforms.m */,
+				FAC096BF1CB6D4760047496D /* NSNumber+Transforms.h */,
+				FAC096C01CB6D4760047496D /* NSNumber+Transforms.m */,
+			);
+			name = Transforms;
+			sourceTree = "<group>";
+		};
+		FAC096C71CB6D7190047496D /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				FAC096C81CB6D72E0047496D /* NSColor+Constructor.h */,
+				FAC096C91CB6D72E0047496D /* NSColor+Constructor.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +187,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC096B51CB6D2DD0047496D /* hooks.m in Sources */,
+				FAC096CA1CB6D72E0047496D /* NSColor+Constructor.m in Sources */,
 				FAC096B11CB58E940047496D /* tramp.s in Sources */,
 				FA03A6151CB4C02D00F9E960 /* Crucible.m in Sources */,
+				FAC096BA1CB6D3DD0047496D /* values.m in Sources */,
+				FAC096C11CB6D4760047496D /* NSNumber+Transforms.m in Sources */,
+				FAC096C51CB6D4F20047496D /* NSObject+Transforms.m in Sources */,
+				FAC096BE1CB6D4660047496D /* NSString+Transforms.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
