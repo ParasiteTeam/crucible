@@ -68,7 +68,7 @@ Crucible files are just in a certain `plist` file format. Here is the general st
 
 ### Transforms
 
-Transforms take whatever value you entered and does some pre-processing at runtime to make make it a different value. Here is a list of the available transforms:
+Transforms take whatever value you entered and does some pre-processing at runtime to make make it a different value. Parasite extensions can add more Transforms into whatever they are loaded into by defining a category on `NSObject` and naming functions with a `_crucible_` prefix such as `-(id)_curcile_url` for the `url` transform. Here is a list of the default available transforms:
 
 | Name | Return Type | Argument Type | Description |
 |------|-------------|---------------|-------------|
