@@ -42,8 +42,27 @@ static id transform_value(id value, NSString *transform) {
     } else if ([transform isEqualToString:@"hex"]) {
         if (!is_number && !is_string) return nil;
         
+        unsigned int clr;
+        
+        if (is_number) {
+            clr = ((NSNumber *)value).unsignedIntValue;
+        } else {
+            NSScanner *scanner = [NSScanner scannerWithString:value];
+            [scanner scanHexInt:&clr];
+        }
+        
+        unsigned char r = (unsigned char)(clr >> 16);
+        unsigned char g = (unsigned char)(clr >> 8);
+        unsigned char b = (unsigned char)(clr);
+        
+        return [NSColor colorWithRed:(CGFloat)r / 0xFF green:(CGFloat)g / 0xFF blue:(CGFloat)b / 0xFF alpha:1.0];
+        
     } else if ([transform isEqualToString:@"color"]) {
         // prefix with rgba/hsla/hsba
+        if (!is_string) return nil;
+        
+        
+        
     }
     
     return value;
