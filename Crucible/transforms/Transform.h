@@ -18,4 +18,5 @@ TRANSFORM(url);
 TRANSFORM(file_url);
 TRANSFORM(color);
 TRANSFORM(now);
+TRANSFORM(alloc_init);
 @end

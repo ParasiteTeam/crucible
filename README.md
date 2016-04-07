@@ -81,3 +81,4 @@ Here is a list of the default available transforms:
 | file_url | NSURL | string | Transforms a string into a file path URL using `fileURLWithPath:` |
 | now | NSDate | ignored | Returns `[NSDate date]` |
 | color | NSColor | string/number | Transforms a string or a number into an NSColor. Accepts the common CSS styles like hsl/hsla, hsb, rgb, gray, hex. |
+| alloc_init | any class | string | Calls +alloc and then -init on a given class name.

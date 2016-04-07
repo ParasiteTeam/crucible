@@ -26,4 +26,8 @@ TRANSFORM(now) {
     return [NSDate date];
 }
 
+TRANSFORM(alloc_init) {
+    return nil;
+}
+
 @end

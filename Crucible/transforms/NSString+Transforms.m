@@ -136,4 +136,13 @@ TRANSFORM(color) {
     return nil;
 }
 
+TRANSFORM(alloc_init) {
+    Class cls = objc_getClass(self.UTF8String);
+    if (cls != NULL) {
+        return [[cls alloc] init];
+    }
+    
+    return nil;
+}
+
 @end
