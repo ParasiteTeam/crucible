@@ -295,6 +295,7 @@
 				);
 				INFOPLIST_FILE = Crucible/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Parasite/Extensions";
+				LIBRARY_SEARCH_PATHS = /Library/Parasite;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexzielenski.crucible;
 				PRODUCT_NAME = Crucible;
 				SKIP_INSTALL = YES;
@@ -318,6 +319,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				INFOPLIST_FILE = Crucible/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Parasite/Extensions";
+				LIBRARY_SEARCH_PATHS = /Library/Parasite;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alexzielenski.crucible;
 				PRODUCT_NAME = Crucible;
 				SKIP_INSTALL = NO;

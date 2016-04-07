@@ -31,8 +31,9 @@ static void load_path(NSString *path, int version) {
     }
 }
 
-ctor {
+static void __CrucibleInit() {
     @autoreleasepool {
+        
         NSFileManager *manager = [NSFileManager defaultManager];
         NSArray *crucible = [manager contentsOfDirectoryAtPath:CRUCIBLE_PATH error:nil];
         
@@ -44,6 +45,8 @@ ctor {
             if ([identifier hasPrefix:@"class_"]) {
                 NSString *className = [identifier substringFromIndex:@"class_".length];
                 Class cls = objc_getClass(className.UTF8String);
+                CLog(@"Checking for class %@", className);
+                
                 if (cls == NULL) continue;
                 
                 NSBundle *bndl = [NSBundle bundleForClass:cls];
@@ -68,4 +71,15 @@ ctor {
             }
         }
     }
+}
+
+static void __CrucibleCallback(CFURLRef path, CFIndex i, CFIndex total) {
+    if (i == total - 1) {
+        // Done!
+        __CrucibleInit();
+    }
+}
+#pragma weak PSRegisterCallback
+ctor {
+    PSRegisterCallback(__CrucibleCallback);
 }
