@@ -51,7 +51,7 @@ Crucible files are just in a certain `plist` file format. Here is the general st
 |-----|------|-------------|
 | Hooks | array of Hook Elements | The root key that contains all of your hooks |
 | Hook Element | dictionary | Contains a **class hook** or a **function hook** |
-| MinBundleVersion | number | Minimum Bundle Version to use this `Hook Element` on. |
+| MinBundleVersion | number | Minimum Bundle Version to use this `Hook Element` on. The version is derived from whatever filter you used to load this Crucible plist. |
 | MaxBundleVersion | number | Maximum Bundle Version to use this `Hook Element` on. |
 | Class | string | For a **class hook**, specifies which class the `Methods` key will hook |
 | Methods | array of Method Elements | For a **class hook**, contains a list of all the methods in the class to hook and which values to return. |
