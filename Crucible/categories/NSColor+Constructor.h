@@ -18,6 +18,11 @@
 #import <Cocoa/Cocoa.h>
 #endif
 
+typedef struct {
+    CGFloat a, b, c, d;
+} float_quad;
+
 @interface COLOR_CLASS (Constructor)
 + (instancetype)colorWithHexColor:(unsigned  int)hex;
++ (instancetype)colorWithHue:(CGFloat)hue saturation:(CGFloat)saturation lightness:(CGFloat)lightness alpha:(CGFloat)alpha;
 @end

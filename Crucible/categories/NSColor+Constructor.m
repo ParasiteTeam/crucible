@@ -8,10 +8,6 @@
 
 #import "NSColor+Constructor.h"
 
-typedef struct {
-    CGFloat a, b, c, d;
-} float_quad;
-
 static inline void HSLToHSB(float_quad hsl, float_quad *hsb) {
     // Alpha
     hsb->d = hsl.d;

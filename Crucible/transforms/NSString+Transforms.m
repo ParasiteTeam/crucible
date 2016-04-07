@@ -20,6 +20,42 @@ TRANSFORM(file_url) {
     return [NSURL fileURLWithPath:self];
 }
 
+static BOOL scan_float(NSScanner *scanner, CGFloat *flt, CGFloat scale) {
+    scanner.charactersToBeSkipped = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    CGFloat f = 0.0;
+    int i;
+    
+    if ([scanner scanFloat:(float *)&flt]) {
+    fin:
+        if ([scanner scanString:@"%" intoString:NULL]) {
+            f /= 100;
+        } else {
+            f *= scale;
+        }
+        
+        *flt = f;
+        return YES;
+    } else if ([scanner scanInt:&i]) {
+        f = (CGFloat)i;
+        goto fin;
+    }
+    return NO;
+}
+
+static BOOL scan_quad(NSScanner *scanner, float_quad scale, float_quad *quad, BOOL alpha) {
+    scanner.charactersToBeSkipped = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    BOOL succ = [scanner scanString:@"(" intoString:NULL];
+    succ &= scan_float(scanner, &(quad->a), scale.a);
+    succ &= scan_float(scanner, &(quad->b), scale.b);
+    succ &= scan_float(scanner, &(quad->c), scale.c);
+    if (alpha)
+        succ &= scan_float(scanner, &(quad->d), scale.d);
+    else
+        quad->d = 1.0;
+    succ = [scanner scanString:@")" intoString:NULL];
+    return succ;
+}
+
 TRANSFORM(color) {
     if ([self hasPrefix:@"#"]) {
         NSString *hexCode = [self substringFromIndex:1];
@@ -41,7 +77,62 @@ TRANSFORM(color) {
 #
         return [COLOR_CLASS colorWithHexColor:hex];
         
+    } else if ([self.lowercaseString hasPrefix:@"rgb"]) {
+        NSString *quad = [self substringFromIndex:4];
+        BOOL alpha = [quad hasPrefix:@"a"];
+        if (alpha) quad = [quad substringFromIndex:1];
+        
+        float_quad args;
+        float_quad scale = { 1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0 };
+        NSScanner *scan = [NSScanner scannerWithString:quad];
+        if (scan_quad(scan, scale, &args, alpha)) {
+            return [COLOR_CLASS colorWithRed:args.a green:args.b blue:args.c alpha:args.d];
+        }
+        
+        return nil;
+    } else if ([self.lowercaseString hasPrefix:@"hsl"]) {
+        NSString *quad = [self substringFromIndex:4];
+        BOOL alpha = [quad hasPrefix:@"a"];
+        if (alpha) quad = [quad substringFromIndex:1];
+        
+        float_quad args;
+        float_quad scale = { 1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0 };
+        NSScanner *scan = [NSScanner scannerWithString:quad];
+        if (scan_quad(scan, scale, &args, alpha)) {
+            return [COLOR_CLASS colorWithHue:args.a saturation:args.b lightness:args.c alpha:args.d];
+        }
+        
+        return nil;
+    } else if ([self.lowercaseString hasPrefix:@"hsb"]) {
+        NSString *quad = [self substringFromIndex:4];
+        BOOL alpha = [quad hasPrefix:@"a"];
+        if (alpha) quad = [quad substringFromIndex:1];
+        
+        float_quad args;
+        float_quad scale = { 1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0, 1.0 / 255.0 };
+        NSScanner *scan = [NSScanner scannerWithString:quad];
+        if (scan_quad(scan, scale, &args, alpha)) {
+            return [COLOR_CLASS colorWithHue:args.a saturation:args.b brightness:args.c alpha:args.d];
+        }
+        
+        return nil;
+    } else if ([self.lowercaseString hasPrefix:@"gray("]) {
+        NSString *num = [self substringFromIndex:5];
+        NSScanner *scan = [NSScanner scannerWithString:num];
+        CGFloat g, a = 1.0;
+        if (scan_float(scan, &g, 1.0 / 255.0)) {
+            if ([scan scanString:@"," intoString:NULL]) {
+                scan_float(scan, &a, 1.0);
+            }
+            
+            return [COLOR_CLASS colorWithWhite:g alpha:a];
+            
+        }
+        
+        return nil;
+
     }
+    
     return nil;
 }
 

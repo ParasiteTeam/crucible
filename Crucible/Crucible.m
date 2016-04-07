@@ -58,7 +58,6 @@ ctor {
                 if (is_dir) {
                     NSArray *contents = [manager contentsOfDirectoryAtPath:path error:nil];
                     for (NSString *name in contents) {
-                        if (![name.pathExtension isEqualToString:@"plist"]) continue;
                         NSString *file_path = [path stringByAppendingPathComponent:name];
                         load_path(file_path, version);
                     }
