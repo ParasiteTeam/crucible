@@ -38,7 +38,7 @@ Crucible files are just in a certain `plist` file format. Here is the general st
 |––––|––––|––––| Key: Image (string): "identifier:com.apple.AppKit"
 |––––|––––|––––| Key: Returns (string): "@"
 |––––|––––|––––| Key: Value (value/value dict): "Bill Nye"
-|––––|––––| Index 1 (dictionary)
+|––––|––––| Index 2 (dictionary)
 |––––|––––|––––| Key: Symbol (string): "_test"
 |––––|––––|––––| Key: Image (string): "@executable_path"
 |––––|––––|––––| Key: Returns (string): "v"
