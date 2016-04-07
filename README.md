@@ -71,7 +71,7 @@ Crucible files are just in a certain `plist` file format. Here is the general st
 
 Transforms take whatever value you entered and does some pre-processing at runtime to make make it a different value. 
 
-Parasite extensions can add more Transforms into whatever they are loaded into by defining a category on `NSObject` and naming functions with a `_crucible_` prefix such as `-(id)_crucible_url` for the `url` transform. ***NOTE:** Transforms are affected by any hooks specified in parasite or Crucible, so be wary of infinite loops with things like for example; when hooking `colorWithRed:green:blue:alpha:` and supplying an argument that would trigger an invocation of that function because you will be stuck in an infinite loop.
+Parasite extensions can add more Transforms into whatever they are loaded into by defining a category on `NSObject` and naming functions with a `_crucible_` prefix such as `-(id)_crucible_url` for the `url` transform. ***NOTE:*** Transforms are affected by any hooks specified in parasite or Crucible, so be wary of infinite loops with things like for example; when hooking `colorWithRed:green:blue:alpha:` and supplying an argument that would trigger an invocation of that function because you will be stuck in an infinite loop.
 
 Here is a list of the default available transforms:
 
