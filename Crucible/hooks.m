@@ -206,12 +206,6 @@ void process_class_hook(NSDictionary *hook) {
         
         value = sanitize_value(value);
         
-        if (method.count == 3) {
-            NSString *transform = method[2];
-            value = transform_value(value, transform);
-            value = sanitize_value(value);
-        }
-        
         Method m = class_getInstanceMethod(cls, sel);
         if ((m == NULL && instanceMethod == 2) || instanceMethod == 0) {
             m = class_getInstanceMethod(object_getClass(cls), sel);
