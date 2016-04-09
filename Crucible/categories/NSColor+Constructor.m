@@ -33,7 +33,7 @@ static inline void HSLToHSB(float_quad hsl, float_quad *hsb) {
     float_quad hsl = { hue, saturation, lightness, alpha };
     float_quad hsb = { 0.0, 0.0, 0.0, 1.0 };
     HSLToHSB(hsl, &hsb);
-    NSLog(@"Result HSB %f %f %f %f", hsb.a, hsb.b, hsb.c, hsb.d);
+
     return [COLOR_CLASS colorWithHue:hsb.a saturation:hsb.b brightness:hsb.c alpha:hsb.d];
 }
 
