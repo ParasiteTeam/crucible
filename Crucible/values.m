@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "values.h"
+#define TRANSFORM_PREFIX _crucible_
 
 id transform_value(id value, NSString *transform) {
-    SEL transform_selector = NSSelectorFromString([@(MACRO(TRANSFORM_PREFIX)) stringByAppendingString: transform]);
+    SEL transform_selector = NSSelectorFromString([@"_crucible_" stringByAppendingString: transform]);
     if ([value respondsToSelector:transform_selector]) {
         return [value performSelector:transform_selector];
         

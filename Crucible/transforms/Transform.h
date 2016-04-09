@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#define TRANSFORM_PREFIX _crucible_
-#define CONCAT(A, B) A ## B
-#define TRANSFORM(NAME) - (id)CONCAT(TRANSFORM_PREFIX, NAME)
+#define CONCAT(A, B) A##B
+#define TRANSFORM(NAME) - (id)CONCAT(_crucible_, NAME)
 
 // All of the transforms available
 @protocol Transform <NSObject>

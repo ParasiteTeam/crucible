@@ -79,7 +79,7 @@ static void __CrucibleCallback(CFURLRef path, CFIndex i, CFIndex total) {
         __CrucibleInit();
     }
 }
-#pragma weak PSRegisterCallback
+
 ctor {
     PSRegisterCallback(__CrucibleCallback);
 }
