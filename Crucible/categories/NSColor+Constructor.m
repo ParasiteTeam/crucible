@@ -11,12 +11,10 @@
 static inline void HSLToHSB(float_quad hsl, float_quad *hsb) {
     // Alpha
     hsb->d = hsl.d;
-    hsb->b = hsl.b * ((hsl.c <= 1.0) ? hsl.c : (2.0 - hsl.c));
-    hsb->c = (hsb->b + hsl.c) * 0.5;
-    if (hsb->b != 0.0) {
-        hsb->b = (2 * hsb->b) / (hsb->b + hsl.c);
-    }
     hsb->a = hsl.a - floor(hsl.a);
+    
+    hsb->c = 2 * hsl.c + hsl.b * (1 - fabs(2 * hsl.c - 1)) / 2;
+    hsb->b = 2 * (hsb->c - hsl.c) / hsb->c;
 }
 
 @implementation COLOR_CLASS (Constructor)
@@ -35,6 +33,7 @@ static inline void HSLToHSB(float_quad hsl, float_quad *hsb) {
     float_quad hsl = { hue, saturation, lightness, alpha };
     float_quad hsb = { 0.0, 0.0, 0.0, 1.0 };
     HSLToHSB(hsl, &hsb);
+    NSLog(@"Result HSB %f %f %f %f", hsb.a, hsb.b, hsb.c, hsb.d);
     return [COLOR_CLASS colorWithHue:hsb.a saturation:hsb.b brightness:hsb.c alpha:hsb.d];
 }
 
