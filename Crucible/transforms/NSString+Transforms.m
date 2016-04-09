@@ -104,7 +104,6 @@ TRANSFORM(color) {
         if (scan_quad(scan, scale, &args, alpha)) {
             return [COLOR_CLASS colorWithHue:args.a saturation:args.b lightness:args.c alpha:args.d];
         }
-        
         return nil;
     } else if ([self.lowercaseString hasPrefix:@"hsb"]) {
         NSString *quad = [self substringFromIndex:3];
