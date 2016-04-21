@@ -33,11 +33,15 @@ static void load_path(NSString *path, int version) {
 
 static void __CrucibleInit() {
     @autoreleasepool {
-        
-        NSFileManager *manager = [NSFileManager defaultManager];
-        NSArray *crucible = [manager contentsOfDirectoryAtPath:CRUCIBLE_PATH error:nil];
-        
-        for (NSString *name in crucible) {
+        CFURLEnumeratorRef num = CFURLEnumeratorCreateForDirectoryURL(kCFAllocatorDefault,
+                                                                      (__bridge CFURLRef)[NSURL fileURLWithPath:CRUCIBLE_PATH],
+                                                                      kCFURLEnumeratorSkipInvisibles,
+                                                                      (__bridge CFArrayRef)@[ (__bridge id)kCFURLIsDirectoryKey ]);
+        CFURLRef nextRef = NULL;
+        while (CFURLEnumeratorGetNextURL(num, &nextRef, NULL) == kCFURLEnumeratorSuccess) {
+            NSURL *url = (__bridge NSURL *)nextRef;
+            NSString *name = url.lastPathComponent;
+            
             NSString *identifier = name.stringByDeletingPathExtension;
             
             int version = [[[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleVersionKey] intValue];
@@ -56,20 +60,25 @@ static void __CrucibleInit() {
             
             // We should load this plist's hooks
             NSString *path = [CRUCIBLE_PATH stringByAppendingPathComponent:name];
-            BOOL is_dir = NO;
-            if ([manager fileExistsAtPath:path isDirectory:&is_dir]) {
-                if (is_dir) {
-                    NSArray *contents = [manager contentsOfDirectoryAtPath:path error:nil];
-                    for (NSString *name in contents) {
-                        NSString *file_path = [path stringByAppendingPathComponent:name];
-                        load_path(file_path, version);
-                    }
-                    
-                } else {
+            NSNumber *isDir;
+            [url getResourceValue:&isDir forKey:(__bridge NSString *)kCFURLIsDirectoryKey error:nil];
+            if (isDir.boolValue) {
+                CFURLEnumeratorRef sub = CFURLEnumeratorCreateForDirectoryURL(kCFAllocatorDefault,
+                                                                              nextRef,
+                                                                              kCFURLEnumeratorSkipInvisibles,
+                                                                              nil);
+                CFURLRef subRef;
+                while (CFURLEnumeratorGetNextURL(sub, &subRef, NULL) == kCFURLEnumeratorSuccess) {
+                    NSString *path = [(__bridge NSURL *)subRef path];
                     load_path(path, version);
                 }
+                CFRelease(sub);
+            } else {
+                load_path(path, version);
             }
         }
+        
+        CFRelease(num);
     }
 }
 
