@@ -27,10 +27,10 @@ extern NSString *const MAX_VERSION_KEY;
 
 #define MACRO(M) #M
 
-//#ifdef DEBUG
+#ifdef DEBUG
 #define CLog(...) NSLog(@"[Crucible] " __VA_ARGS__)
-//#else
-//    #define CLog(...) (void)0
-//#endif
+#else
+    #define CLog(...) (void)0
+#endif
 
 #endif /* Crucible_h */
