@@ -4,7 +4,7 @@ Crucible is a platform for loading C function or Objective-C method hooks from p
 
 ## Installation
 
-Install Parasite and place `Crucible.bundle` in `/Library/Parasite/Extensions`; then create the empty folder `/Library/Parasite/Crucible`
+Crucible comes bundled with Parasite on installation.
 
 ## Folder Structure
 
