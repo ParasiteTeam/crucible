@@ -72,13 +72,16 @@ static void __CrucibleInit() {
                     NSString *path = [(__bridge NSURL *)subRef path];
                     load_path(path, version);
                 }
-                CFRelease(sub);
+                if (sub != NULL) {
+                    CFRelease(sub);
+                }
             } else {
                 load_path(path, version);
             }
         }
-        
-        CFRelease(num);
+        if (num != NULL) {
+            CFRelease(num);
+        }
     }
 }
 
